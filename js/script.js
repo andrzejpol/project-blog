@@ -47,7 +47,9 @@ const optArticleSelector = '.post',
   optArticleTagSelector = '.post-tags .list a',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post .post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 // function generateTitleLinks() {
 
@@ -121,7 +123,15 @@ function calculateTagsParams(tags) {
   }
 
   return params;
-  console.log(tag + ' is used ' + tags[tag] + ' times');
+
+}
+
+function calculateTagsClass(count, params) {
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+  return classNumber;
 }
 
 function generateTags() {
@@ -178,7 +188,7 @@ function generateTags() {
   /* [NEW] START LOOP: for each tag in allTags */
   for (let tag in allTags) {
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + '</a></li>' + ' (' + allTags[tag] + ') ';
+    allTagsHTML += '<li><a class="tag-style-' + calculateTagsClass(allTags[tag], tagsParams) + '"href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ')</a></li>';
   }
   /* [NEW] add html from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
@@ -277,13 +287,14 @@ function authorClickHandler(event) {
   /* execute function "generateTitleLinks" with article selector as argument */
   generateTitleLinks('[data-author="' + authorTag + '"]');
 
-};
+}
 
 
 function addClickListenersToAuthors() {
-  const authorTag = document.querySelector(optArticleAuthorSelector + ' a');
-  console.log(authorTag);
-  authorTag.addEventListener('click', authorClickHandler);
+  const authorTags = document.querySelectorAll(optArticleAuthorSelector + ' a');
+  for (let authorTag of authorTags) {
+    authorTag.addEventListener('click', authorClickHandler);
+  }
 }
 
 addClickListenersToAuthors();

@@ -112,4 +112,24 @@ body {
 .post-tags p {
   margin: 0 10px 0 0;
 }
+
+.tag-style-1 {
+  font-size: 12px;
+}
+
+.tag-style-2 {
+  font-size: 14px;
+}
+
+.tag-style-3 {
+  font-size: 16px;
+}
+
+.tag-style-4 {
+  font-size: 18px;
+}
+
+.tag-style-5 {
+  font-size: 20px;
+}
 /*# sourceMappingURL=style.css.map */
