@@ -50,13 +50,16 @@ const titleClickHandler = function () {
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
-  optArticleTagSelector = '.post-tags .list a',
+  optArticleTagSelector = '.post-tags .list a, .tags.list a',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post .post-author',
   optTagsListSelector = '.tags.list',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-',
-  optAuthorListSelector = 'ul.list.authors';
+  optAuthorListSelector = 'ul.list.authors',
+  optArticleAuthorLinkSelector = '.post .post-author a, .list.authors a';
+
+
 
 // function generateTitleLinks() {
 
@@ -277,7 +280,7 @@ function generateAuthors() {
     console.log(articleAuthor);
     // const authorLink = '<a href="#author-' + articleAuthor + '"> by ' + articleAuthor + '</a>';
     const linkHTMLData = {
-      id: articleAuthor,
+      id: 'author-' + articleAuthor,
       title: articleAuthor
     };
     const linkHTML = templates.articleLink(linkHTMLData);
@@ -346,7 +349,7 @@ function authorClickHandler(event) {
 
 
 function addClickListenersToAuthors() {
-  const authorTags = document.querySelectorAll(optArticleAuthorSelector + ' a');
+  const authorTags = document.querySelectorAll(optArticleAuthorLinkSelector);
   for (let authorTag of authorTags) {
     authorTag.addEventListener('click', authorClickHandler);
   }
